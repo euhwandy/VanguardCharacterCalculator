@@ -12,11 +12,11 @@
 <body>
 
 
-    <!-- Stat Block -->
     <section class="bg-success py-5">
         <div class="container">
             <div class="row">
-                <div class="col-md py-3">
+                <!-- Stat Block -->
+                <div class="col-md-6">
                     <div class="card bg-light text-dark">
                         <div class="card-body text-left">
                             <!--<h3 class="Card-title mb-4">Character Name</h3> -->
@@ -84,7 +84,6 @@
                                                             </div>
                                                         </div>
                                                         <div class="row pt-2">
-    <!--<button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>-->
                                                             <div class="col-4">
                                                                 <div tabindex="0" style="cursor:pointer; width:30px;height:30px;background-color:white; border:1px solid rgb(194, 194, 194); border-radius:30%; display:inline-block" 
                                                                         id="armor-upgrade-0" 
@@ -133,105 +132,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col my-4">
-                        <div class="card bg-light text-dark">
-                            <div class="card-body text-left">
-                                <h3>Weapons</h3>
-                                <div class="container px-0" id="weapons-block">
-                                </div>
 
-
-                                <div class="accordion pb-4 d-none" id="weapon-accordion-">
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header">
-                                            <button class="accordion-button" id="weapon-acc-btn-" type="button" data-bs-toggle="collapse" data-bs-target="#weapon-collapse-">
-                                                <h5 id=weapon-name-></h5>
-                                            </button>
-                                        </h2>
-                                        <div id="weapon-collapse-" class="accordion-collapse collapse show" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <table class="target-table">
-                                                    <tr><h4>Target #</h4></tr>
-                                                    <tr>
-                                                        <th class="target-headers"> <div> <span class="melee-header">
-                                                            ML
-                                                        </span> </div> </th>
-                                                        <th class="target-headers"><div><span>
-                                                            S
-                                                        </span></div></th>
-                                                        <th class="target-headers"><div><span>
-                                                            M
-                                                        </span></div></th>
-                                                        <th class="target-headers"><div><span>
-                                                            L
-                                                        </span></div></th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="melee-targs" id="melee-targs-">-</th>
-                                                        <th class="short-targs" id="short-targs-">-</th>
-                                                        <th class="medium-targs" id="medium-targs-">-</th>
-                                                        <th class="long-targs" id="long-targs-">-</th>
-                                                    </tr>
-                                                </table>
-
-                                                <div class="container px-0 py-2" id="upgrade-table-">
-                                                    <h4 class="py-3">Upgrades</h4>
-                                                    <div class="row align-items-center text-center">
-                                                        <div class="col-6" id="melee-upgrades-">
-                                                            <div>
-                                                                <img src="img/melee-0.5.png" class="img-fluid">
-                                                            </div>
-                                                            <div id="melee-dice-div-">
-                                                                <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
-                                                                <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
-                                                                <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
-                                                            </div>
-                                                        </div>
-                
-                
-                                                        <div class="col-6" id="ranged-upgrades-">
-                                                            <div><img src="img/ranged-0.5.png" class="img-fluid"></div>
-                                                            <div id="ranged-dice-div-">
-                                                                <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
-                                                                <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
-                                                                <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="weapon-desc-block-" class="py-3">
-                                                    <h4 id="weapon-desc-header-">Description</h4>
-                                                    <p id="weapon-desc-"></p>
-                                                </div>
-    
-    
-    
-    
-                                                <button type="button" class="btn btn-success" id="weapon-edit-" >
-                                                    <i class="bi bi-pencil-square"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-danger" id="weapon-delete-">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <button class="btn btn-primary btn-lg" 
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#weapons" id=add-weapon>
-
-                                    Add Weapon
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
                 <!-- Traits Block -->
-                <div class="col-md py-3">
+                <div class="col-md-6 pt-4 py-md-0">
                     <div class="card bg-light text-dark">
                         <div class="card-body">
                             <div class="text-right">
@@ -295,6 +199,104 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Weapons Block -->
+                <div class="col-md-6 mt-4">
+                    <div class="card bg-light text-dark">
+                        <div class="card-body text-left">
+                            <h3>Weapons</h3>
+                            <div class="container px-0" id="weapons-block">
+                            </div>
+
+
+                            <div class="accordion pb-4 d-none" id="weapon-accordion-">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" id="weapon-acc-btn-" type="button" data-bs-toggle="collapse" data-bs-target="#weapon-collapse-">
+                                            <h5 id=weapon-name-></h5>
+                                        </button>
+                                    </h2>
+                                    <div id="weapon-collapse-" class="accordion-collapse collapse show" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <table class="target-table">
+                                                <tr><h4>Target #</h4></tr>
+                                                <tr>
+                                                    <th class="target-headers"> <div> <span class="melee-header">
+                                                        ML
+                                                    </span> </div> </th>
+                                                    <th class="target-headers"><div><span>
+                                                        S
+                                                    </span></div></th>
+                                                    <th class="target-headers"><div><span>
+                                                        M
+                                                    </span></div></th>
+                                                    <th class="target-headers"><div><span>
+                                                        L
+                                                    </span></div></th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="melee-targs" id="melee-targs-">-</th>
+                                                    <th class="short-targs" id="short-targs-">-</th>
+                                                    <th class="medium-targs" id="medium-targs-">-</th>
+                                                    <th class="long-targs" id="long-targs-">-</th>
+                                                </tr>
+                                            </table>
+
+                                            <div class="container px-0 py-2" id="upgrade-table-">
+                                                <h4 class="py-3">Upgrades</h4>
+                                                <div class="row align-items-center text-center">
+                                                    <div class="col-6" id="melee-upgrades-">
+                                                        <div>
+                                                            <img src="img/melee-0.5.png" class="img-fluid">
+                                                        </div>
+                                                        <div id="melee-dice-div-">
+                                                            <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
+                                                            <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
+                                                            <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
+                                                        </div>
+                                                    </div>
+            
+            
+                                                    <div class="col-6" id="ranged-upgrades-">
+                                                        <div><img src="img/ranged-0.5.png" class="img-fluid"></div>
+                                                        <div id="ranged-dice-div-">
+                                                            <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
+                                                            <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
+                                                            <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="weapon-desc-block-" class="py-3">
+                                                <h4 id="weapon-desc-header-">Description</h4>
+                                                <p id="weapon-desc-"></p>
+                                            </div>
+
+
+
+
+                                            <button type="button" class="btn btn-success" id="weapon-edit-" >
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" id="weapon-delete-">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <button class="btn btn-primary btn-lg" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#weapons" id=add-weapon>
+
+                                Add Weapon
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
