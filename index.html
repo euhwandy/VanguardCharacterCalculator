@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Vanguard Calculator</title>
+</head>
+<body>
+
+
+    <!-- Stat Block -->
+    <section class="bg-success py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md py-3">
+                    <div class="card bg-light text-dark">
+                        <div class="card-body text-left">
+                            <!--<h3 class="Card-title mb-4">Character Name</h3> -->
+                            <input type="text" class="form-control form-control-lg mb-4" placeholder="Character Name">
+
+                            <div class="row text-center align-items-center justify-content-center">
+                                <div class="col-6 p-0">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-4 p-0">
+                                                <img class="img-fluid" src="img/melee.png" alt="">
+                                            </div>
+                                            <div class="col-4 p-0">
+                                                <img class="img-fluid" src="img/ranged.png" alt="">
+                                            </div>
+                                            <div class="col-4 p-0">
+                                                <img class="img-fluid" src="img/aptitude.png" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4 p-0">
+                                                <select class="form-select form-select-custom" id="melee-selector">
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-4 p-0">
+                                                <select class="form-select form-select-custom" id="range-selector">
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-4 p-0">
+                                                <select class="form-select form-select-custom" id="aptitude-selector">
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row p-0">
+                                            <!-- Armor Card -->
+                                            <div class="card bg-light text-dark p-0 mt-3 border-0">
+                                                <div class="card-body text-center p-0">
+                                                    <img src="img/shield.png" class="card-img">
+                                                    <div class="card-img-overlay p-0 p-md-2 p-lg-4">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-6">
+                                                                <span class="text-nowrap">Armor</span>
+                                                            </div>
+                                                            <div class="col-6 px-1 px-sm-3">
+                                                                <select class="form-select form-select-custom" id="armor-selector">
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row pt-2">
+    <!--<button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>-->
+                                                            <div class="col-4">
+                                                                <div tabindex="0" style="cursor:pointer; width:30px;height:30px;background-color:white; border:1px solid rgb(194, 194, 194); border-radius:30%; display:inline-block" 
+                                                                        id="armor-upgrade-0" 
+                                                                        data-bs-toggle="popover" 
+                                                                        data-bs-trigger="focus" 
+                                                                        data-bs-content="Number of armor upgrades cannot exceed armor value" 
+                                                                        data-bs-placement="top">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div tabindex="0" style="cursor:pointer; width:30px;height:30px;background-color:white; border:1px solid rgb(194, 194, 194); border-radius:30%; display:inline-block" 
+                                                                        id="armor-upgrade-1"
+                                                                        data-bs-toggle="popover" 
+                                                                        data-bs-trigger="focus" 
+                                                                        data-bs-content="Number of armor upgrades cannot exceed armor value" 
+                                                                        data-bs-placement="top">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div tabindex="0" style="cursor:pointer; width:30px;height:30px;background-color:white; border:1px solid rgb(194, 194, 194); border-radius:30%; display:inline-block" 
+                                                                        id="armor-upgrade-2"
+                                                                        data-bs-toggle="popover" 
+                                                                        data-bs-trigger="focus" 
+                                                                        data-bs-content="Number of armor upgrades cannot exceed armor value" 
+                                                                        data-bs-placement="top">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Character portrait -->
+                                <div class="col-6 ">
+                                    <div class="card bg-secondary">
+                                        <input type="file"  accept="image/*" name="image" id="file" style="display: none;">
+                                        <label for="file" style="cursor: pointer;">
+                                            <div class="card-body">
+                                                <img class="img-fluid" src="img/file-person-fill.svg" style="width:400px; height:auto;" id="character-portrait">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col my-4">
+                        <div class="card bg-light text-dark">
+                            <div class="card-body text-left">
+                                <h3>Weapons</h3>
+                                <div class="container px-0" id="weapons-block">
+                                </div>
+
+
+                                <div class="accordion pb-4 d-none" id="weapon-accordion-">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" id="weapon-acc-btn-" type="button" data-bs-toggle="collapse" data-bs-target="#weapon-collapse-">
+                                                <h5 id=weapon-name-></h5>
+                                            </button>
+                                        </h2>
+                                        <div id="weapon-collapse-" class="accordion-collapse collapse show" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <table class="target-table">
+                                                    <tr><h4>Target #</h4></tr>
+                                                    <tr>
+                                                        <th class="target-headers"> <div> <span class="melee-header">
+                                                            ML
+                                                        </span> </div> </th>
+                                                        <th class="target-headers"><div><span>
+                                                            S
+                                                        </span></div></th>
+                                                        <th class="target-headers"><div><span>
+                                                            M
+                                                        </span></div></th>
+                                                        <th class="target-headers"><div><span>
+                                                            L
+                                                        </span></div></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="melee-targs" id="melee-targs-">-</th>
+                                                        <th class="short-targs" id="short-targs-">-</th>
+                                                        <th class="medium-targs" id="medium-targs-">-</th>
+                                                        <th class="long-targs" id="long-targs-">-</th>
+                                                    </tr>
+                                                </table>
+
+                                                <div class="container px-0 py-2" id="upgrade-table-">
+                                                    <h4 class="py-3">Upgrades</h4>
+                                                    <div class="row align-items-center text-center">
+                                                        <div class="col-6" id="melee-upgrades-">
+                                                            <div>
+                                                                <img src="img/melee-0.5.png" class="img-fluid">
+                                                            </div>
+                                                            <div id="melee-dice-div-">
+                                                                <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
+                                                                <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
+                                                                <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
+                                                            </div>
+                                                        </div>
+                
+                
+                                                        <div class="col-6" id="ranged-upgrades-">
+                                                            <div><img src="img/ranged-0.5.png" class="img-fluid"></div>
+                                                            <div id="ranged-dice-div-">
+                                                                <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
+                                                                <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
+                                                                <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="weapon-desc-block-" class="py-3">
+                                                    <h4 id="weapon-desc-header-">Description</h4>
+                                                    <p id="weapon-desc-"></p>
+                                                </div>
+    
+    
+    
+    
+                                                <button type="button" class="btn btn-success" id="weapon-edit-" >
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger" id="weapon-delete-">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <button class="btn btn-primary btn-lg" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#weapons" id=add-weapon>
+
+                                    Add Weapon
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Traits Block -->
+                <div class="col-md py-3">
+                    <div class="card bg-light text-dark">
+                        <div class="card-body">
+                            <div class="text-right">
+                                <h6 style="text-align: right;" id="points">0 Points</h6>
+                            </div>
+                            <div class="row">
+                                <div class="container">
+                                    <div style="float: left;">
+                                        <h3>Traits</h3>
+                                    </div>
+                                    <div style="float: right;">
+                                        <div class="form-check">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                <h6>Plot Armor</h6>
+                                            </label>
+                                            <input class="form-check-input" type="checkbox" value="" id="plot-armor-cb">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container px-0" id="traits-block">
+                            </div>
+
+                            <div class="accordion pb-4 d-none" id="trait-accordion-">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#trait-collapse-" id="trait-acc-btn-">
+                                            <div class="div">
+                                                <h5 id="trait-name-"></h5>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                    <div id="trait-collapse-" class="accordion-collapse collapse show" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="container">
+                                                    <div style="float: left;">
+                                                        <h4>Description</h4>
+                                                    </div>
+                                                    <div style="float: right;">
+                                                        <h5 id="trait-cost-">5<img src="img/fist.png" class="img-fluid" style="width: 30px;"></h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p id="trait-desc-"></p>
+                                            <button type="button" class="btn btn-success" id="trait-edit-">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" id="trait-delete-">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-lg" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#traits" id=add-trait>
+                                Add Trait
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Traits Modal -->
+    <div class="modal fade" id="traits" tabindex="-1" aria-labelledby="traitsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="traitsLabel">Add Trait</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="dropdown py-1">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        Select Trait
+                                    </button>
+                                    <ul class="dropdown-menu" id="traits-dropdown">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 pt-3 p-sm-0">
+                                <div class="card bg-light text-dark">
+                                    <div class="card-body">
+
+
+
+                                        <div class="row">
+                                            <div class="container">
+                                                <div style="float: left;">
+                                                    <h3 id="trait-name" class="card-title mb-1">None</h3>
+                                                    <h6 id="trait-points" class="card-subtitle mb-3 text-muted">Points: 0</h6>
+                                                </div>
+                                                <div style="float: right;">
+                                                    <h5 id="trait-cost"><img src="img/fist.png" class="img-fluid" style="width: 30px;"></h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h4>Description</h4>
+                                        <p id="trait-description"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" 
+                            class="btn btn-secondary" 
+                            data-bs-dismiss="modal"
+                            id="trait-modal-close">
+                        Close
+                    </button>
+                    <button type="button" 
+                            class="btn btn-primary" 
+                            data-bs-dismiss="modal" 
+                            id="modal-add-trait">
+                        Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Weapons Modal -->
+    <div class="modal fade" id="weapons" tabindex="-1" aria-labelledby="weaponsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="weaponsLabel">Add Weapon</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="dropdown py-1">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        Select Weapon
+                                    </button>
+                                    <ul class="dropdown-menu" id="weapons-dropdown">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 pt-3 p-sm-0">
+                                <div class="card bg-light text-dark">
+                                    <div class="card-body">
+                                        <h3 id="weapon-name" class="card-title mb-1">None</h3>
+                                        <h6 id="weapon-points" class="card-subtitle mb-3 text-muted">Points: 0</h6>
+                                        <div id="modal-target-table">
+                                            <h4>Target #</h4>
+                                            <table class="target-table" >
+                                                <tr>
+                                                    <th class="target-headers"> <div> <span class="melee-header">
+                                                        ML
+                                                    </span> </div> </th>
+                                                    <th class="target-headers"><div><span>
+                                                        S
+                                                    </span></div></th>
+                                                    <th class="target-headers"><div><span>
+                                                        M
+                                                    </span></div></th>
+                                                    <th class="target-headers"><div><span>
+                                                        L
+                                                    </span></div></th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="melee-targs" id="melee-targs">-</th>
+                                                    <th class="short-targs" id="short-targs">-</th>
+                                                    <th class="medium-targs" id="medium-targs">-</th>
+                                                    <th class="long-targs" id="long-targs">-</th>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+
+                                        <div class="container px-0" id="modal-upgrade-table">
+                                            <h4 class="py-3">Upgrades</h4>
+                                            <div class="row align-items-center text-center">
+                                                <div class="col-sm-2 col-4">
+                                                    <img src="img/melee-0.5.png" class="img-fluid">
+                                                </div>
+                                                <div class="col-sm-4 col-8 px-3">
+                                                    <div class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-primary btn-number" id="melee-upgr-b-minus">
+                                                                <span><i class="bi bi-dash"></i></span>
+                                                            </button>
+                                                        </span>
+                                                        <input type="text" class="form-control input-number" value="0" id="melee-upgr-b" maxlength="1">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-primary btn-number" id="melee-upgr-b-plus">
+                                                                <span><i class="bi bi-plus"></i></span>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                    <div class="input-group py-1">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-success btn-number" id="melee-upgr-g-minus">
+                                                                <span><i class="bi bi-dash"></i></span>
+                                                            </button>
+                                                        </span>
+                                                        <input type="text" class="form-control input-number" value="0" id="melee-upgr-g" maxlength="1">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-success btn-number" id="melee-upgr-g-plus">
+                                                                <span><i class="bi bi-plus"></i></span>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+        
+                                                <div class="col-sm-4 offset-sm-2 col-8 offset-4 my-3 px-0 order-sm-last">
+                                                        <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block" id="melee-dice-0"></div>
+                                                        <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block" id="melee-dice-1"></div>
+                                                        <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block" id="melee-dice-2"></div>
+                                                </div>
+        
+                                                <div class="col-sm-2 col-4">
+                                                    <img src="img/ranged-0.5.png" class="img-fluid">
+                                                </div>
+                                                <div class="col-sm-4 col-8 px-3">
+                                                    <div class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-primary btn-number" id="ranged-upgr-b-minus">
+                                                                <span><i class="bi bi-dash"></i></span>
+                                                            </button>
+                                                        </span>
+                                                        <input type="text" class="form-control input-number" value="0" id="ranged-upgr-b" maxlength="1">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-primary btn-number" id="ranged-upgr-b-plus">
+                                                                <span><i class="bi bi-plus"></i></span>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                    <div class="input-group py-1">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-success btn-number" id="ranged-upgr-g-minus">
+                                                                <span><i class="bi bi-dash"></i></span>
+                                                            </button>
+                                                        </span>
+                                                        <input type="text" class="form-control input-number" value="0" id="ranged-upgr-g" maxlength="1">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-success btn-number" id="ranged-upgr-g-plus">
+                                                                <span><i class="bi bi-plus"></i></span>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+        
+                                                <div class="col-sm-4 offset-sm-2 col-8 offset-4 my-3 px-0 order-sm-last">
+                                                        <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block" id="ranged-dice-0"></div>
+                                                        <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block" id="ranged-dice-1"></div>
+                                                        <div style="width:40px;height:40px;background-color:white; border:1px solid black; border-radius:10%; display:inline-block" id="ranged-dice-2"></div>
+                                                </div>
+        
+        
+                                            </div>
+                                        </div>
+
+                                        <h4 id="weapon-desc-header">Description</h4>
+                                        <p id="weapon-description"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" 
+                            class="btn btn-secondary" 
+                            data-bs-dismiss="modal"
+                            id="weapon-modal-close">
+                        Close
+                    </button>
+                    <button type="button" 
+                            class="btn btn-primary" 
+                            data-bs-dismiss="modal" 
+                            id="modal-add-weapon">
+                        Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> 
+    <script src="index.js"></script> 
+</body>
+</html>
+
+
+

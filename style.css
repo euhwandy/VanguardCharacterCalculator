@@ -1,0 +1,97 @@
+@media(min-width: 768px) {
+    .news-input {
+        width: 50%;
+    }
+}
+
+
+
+.form-select-custom{
+    background: #fff;
+    background-image: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+}
+
+.dropdown-menu {
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.weapons-table {
+    width: 100%;
+}
+
+th.target-headers {
+    height: 10px;
+    white-space: nowrap;
+}
+th.target-headers > div {
+    transform: rotate(300deg);
+    width: 30px;
+}
+th.target-headers > div > span {
+    border-bottom: 1px solid #ccc;
+    /* padding: 5px 10px; */
+}
+
+.btn-counter {
+  width: 50px;
+  height: auto;
+  border-radius: 15px;
+  font-size:12px;
+}
+
+
+.upgrade-selector{
+    background-color:white;
+    border-style: solid;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+}
+
+.upgrade-selector:hover ul.upgrade-dropdown{
+    display: block;
+}
+
+ul.upgrade-dropdown{
+    display: none;
+    min-width: 100%;
+    margin-bottom: 15px;
+    padding: 0;
+    list-style: none;
+    border-style: solid;
+}
+
+.no-upgrade {
+    background-color:white;
+    width: 15px;
+    height: 15px;
+}
+
+.blue-upgrade {
+    background-color:blue;
+    width: 15px;
+    height: 15px;
+}
+.green-upgrade {
+    background-color: green;
+    width: 15px;
+    height: 15px;
+}
+
+.popover{
+    background: #ffff99
+}
+
+input[type="checkbox"]{
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance:none;
+    transform:scale(1.5);
+    cursor: pointer;
+    text-align:right;
+}
