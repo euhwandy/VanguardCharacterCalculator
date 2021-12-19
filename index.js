@@ -51,7 +51,6 @@ function populate_traits_modal(data)
         {
             if(trait_edit_num < 0){
                 create_accordion(trait_template, "trait", traits_block, trait_btn_num);
-                console.log(trait_btn_num)
                 edit_trait(trait_btn_num);
 
                 let trait_delete = document.getElementById("trait-delete-"+trait_btn_num.toString());
@@ -91,18 +90,14 @@ function populate_traits_modal(data)
 
                 n_traits++;
                 trait_btn_num++;
-                console.log(trait_btn_num)
                 if(n_traits == 3)
-                {
                     add_trait.setAttribute("disabled", "disabled");
-                }
             }
             else{
                 edit_trait(trait_edit_num);
                 active_traits[trait_edit_num.toString()] = modal_trait_info;
                 trait_edit_num = -1;
             }
-            console.log(active_traits);
             get_traits(data);
             calculate_points();
         }
@@ -623,11 +618,11 @@ let points_json = {
     "range": 4,
     "melee": 4,
     "aptitude": 4,
+    "armor": 1,
+    "armor-upgrades": 0,
     "trait1": 0,
     "trait2": 0,
     "trait3": 0,
-    "armor": 0,
-    "armor-upgrades": 0,
     "weapon1": 0,
     "weapon1-m-upgrades": 0,
     "weapon1-r-upgrades": 0,
@@ -732,7 +727,6 @@ function get_weapons()
     }
     points_json["type"] = w_type;
 
-    console.log(points_json);
 }
 
 
@@ -759,7 +753,6 @@ function calculate_points(){
     // Add points for stats
     let weapon_type = points_json["type"];
     if(weapon_type){
-        console.log(weapon_type)
         let aptitude = points_json["aptitude"];
         let melee = points_json["melee"];
         let range = points_json["range"];
