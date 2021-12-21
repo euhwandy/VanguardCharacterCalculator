@@ -16,7 +16,7 @@
         <div class="container">
             <div class="row">
                 <!-- Stat Block -->
-                <div class="col-md-6">
+                <div class="col-md-6" id="stat-col">
                     <div class="card bg-light text-dark">
                         <div class="card-body text-left">
                             <!--<h3 class="Card-title mb-4">Character Name</h3> -->
@@ -132,77 +132,8 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
-                <!-- Traits Block -->
-                <div class="col-md-6 pt-4 py-md-0">
-                    <div class="card bg-light text-dark">
-                        <div class="card-body">
-                            <div class="text-right">
-                                <h6 style="text-align: right;" id="points">0 Points</h6>
-                            </div>
-                            <div class="row">
-                                <div class="container">
-                                    <div style="float: left;">
-                                        <h3 id="traits-title">Traits (0/3)</h3>
-                                    </div>
-                                    <div style="float: right;">
-                                        <div class="form-check">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                <h6>Plot Armor</h6>
-                                            </label>
-                                            <input class="form-check-input" type="checkbox" value="" id="plot-armor-cb">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="container px-0" id="traits-block">
-                            </div>
-
-                            <div class="accordion pb-4 d-none" id="trait-accordion-">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#trait-collapse-" id="trait-acc-btn-">
-                                            <div class="div">
-                                                <h5 id="trait-name-"></h5>
-                                            </div>
-                                        </button>
-                                    </h2>
-                                    <div id="trait-collapse-" class="accordion-collapse collapse show" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="container">
-                                                    <div style="float: left;">
-                                                        <h4>Description</h4>
-                                                    </div>
-                                                    <div style="float: right;">
-                                                        <h5 id="trait-cost-">5<img src="img/fist.png" class="img-fluid" style="width: 30px;"></h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <p id="trait-desc-"></p>
-                                            <button type="button" class="btn btn-success" id="trait-edit-">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" id="trait-delete-">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary btn-lg" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#traits" id=add-trait>
-                                Add Trait
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Weapons Block -->
-                <div class="col-md-6 mt-4">
-                    <div class="card bg-light text-dark">
+                    <!-- Weapons Block -->
+                    <div class="card mt-4 bg-light text-dark" id="weapons-col">
                         <div class="card-body text-left">
                             <h3 id="weapons-title">Weapons (0/1)</h3>
                             <div class="container px-0" id="weapons-block">
@@ -295,7 +226,74 @@
                             </button>
                         </div>
                     </div>
+
                 </div>
+                <!-- Traits Block -->
+                <div class="col-md-6 pt-4 py-md-0" id="traits-col">
+                    <div class="card bg-light text-dark">
+                        <div class="card-body">
+                            <div class="text-right">
+                                <h6 style="text-align: right;" id="points">0 Points</h6>
+                            </div>
+                            <div class="row">
+                                <div class="container">
+                                    <div style="float: left;">
+                                        <h3 id="traits-title">Traits (0/3)</h3>
+                                    </div>
+                                    <div style="float: right;">
+                                        <div class="form-check">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                <h6>Plot Armor</h6>
+                                            </label>
+                                            <input class="form-check-input" type="checkbox" value="" id="plot-armor-cb">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container px-0" id="traits-block">
+                            </div>
+
+                            <div class="accordion pb-4 d-none" id="trait-accordion-">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#trait-collapse-" id="trait-acc-btn-">
+                                            <div class="div">
+                                                <h5 id="trait-name-"></h5>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                    <div id="trait-collapse-" class="accordion-collapse collapse show" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="container">
+                                                    <div style="float: left;">
+                                                        <h4>Description</h4>
+                                                    </div>
+                                                    <div style="float: right;">
+                                                        <h5 id="trait-cost-">5<img src="img/fist.png" class="img-fluid" style="width: 30px;"></h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p id="trait-desc-"></p>
+                                            <button type="button" class="btn btn-success" id="trait-edit-">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" id="trait-delete-">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-lg" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#traits" id=add-trait>
+                                Add Trait
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
         </div>

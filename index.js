@@ -1,4 +1,30 @@
 
+let sm_flag = 0;
+window.addEventListener("resize", () => {
+    change_block_order();
+});
+
+let stat_col = document.getElementById("stat-col");
+let traits_col = document.getElementById("traits-col");
+let weapons_col = document.getElementById("weapons-col");
+
+function change_block_order()
+{
+    if(window.innerWidth < 768 && !sm_flag){
+        traits_col.parentElement.removeChild(traits_col);
+        weapons_col.parentElement.removeChild(weapons_col);
+        stat_col.appendChild(traits_col);
+        stat_col.appendChild(weapons_col);
+        sm_flag = true;
+    }
+    if(window.innerWidth >= 768 && sm_flag){
+        stat_col.after(traits_col);
+        sm_flag = false;
+    }
+}
+
+change_block_order(window.innerWidth);
+
 
 Promise.all([
     fetch("./traits.json").then(response => response.json()),
