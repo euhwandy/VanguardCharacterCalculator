@@ -1,15 +1,12 @@
 
-fetch("./traits.json")
-    .then(response => response.json())
-        .then(data => {
-            populate_traits_modal(data);
-        });
 
-fetch("./weapons.json")
-    .then(response => response.json())
-        .then(data => {
-            populate_weapons_modal(data);
-        });
+Promise.all([
+    fetch("./traits.json").then(response => response.json()),
+    fetch("./weapons.json").then(response => response.json())
+]).then(data => {
+    populate_traits_modal(data[0]);
+    populate_weapons_modal(data[1]);
+});
 
 let modal_trait_info = {
     "trait_name": "None",
@@ -18,12 +15,50 @@ let modal_trait_info = {
     "cost": "-"
 }
 let n_traits = 0;
+let max_num_traits = 3;
 let trait_btn_num = 0;
 let trait_edit_num = -1;
 let trait_template = document.getElementById("trait-accordion-");
 let active_traits = {};
 
-function populate_traits_modal(data)
+let max_num_weapons = 1;
+let legal_weapon_types = ["Ranged", "Melee"]
+let traits_title = document.getElementById("traits-title");
+
+function check_trait_legality(trait)
+{
+    let mutual_exclusive_traits = ["Shoulder Straps", "Dual Wielding (Melee)", "Dual Wielding (Ranged)"];
+
+    // Check if one of the mutually exclusive traits exist
+    if(mutual_exclusive_traits.includes(trait)){
+        // Remove the trait from list, we are looking if the other traits exist
+        let index = mutual_exclusive_traits.indexOf(trait);
+        if (index > -1) mutual_exclusive_traits.splice(index, 1);
+
+        // Loop through active traits, check for the other traits
+        for(let i in active_traits){
+            if(mutual_exclusive_traits.includes(active_traits[i]["trait_name"])){
+                let trait_accordion = document.getElementById("trait-accordion-"+i.toString());
+                traits_block.removeChild(trait_accordion);
+                add_trait.removeAttribute("disabled");
+                n_traits--;
+
+                delete active_traits[i];
+            }
+        }
+    }
+
+    if(n_traits == max_num_traits)
+        add_trait.setAttribute("disabled", "disabled");
+    else
+        add_trait.removeAttribute("disabled");
+
+    traits_title.innerText = `Traits (${n_traits}/${max_num_traits})`;
+}
+
+let add_trait = document.getElementById("add-trait");
+let traits_block = document.getElementById("traits-block");
+function populate_traits_modal(traits_json)
 {
     function populate_modal_trait_stats(trait_name, stats_json){
         // Change the trait description
@@ -44,11 +79,14 @@ function populate_traits_modal(data)
 
     // Modal "Add Trait" button
     let modal_add_trait = document.getElementById("modal-add-trait");
-    let add_trait = document.getElementById("add-trait");
-    let traits_block = document.getElementById("traits-block");
     modal_add_trait.addEventListener("click", () => {
         if (modal_trait_info["trait_name"] != "None")
         {
+            // Check for weapon holding traits
+            change_weapon_legality(modal_trait_info["trait_name"]);
+            check_weapon_legality();
+
+            // Check if we are adding a new trait or editing an existing one
             if(trait_edit_num < 0){
                 create_accordion(trait_template, "trait", traits_block, trait_btn_num);
                 edit_trait(trait_btn_num);
@@ -61,9 +99,17 @@ function populate_traits_modal(data)
                     traits_block.removeChild(trait_accordion);
                     n_traits--;
                     add_trait.removeAttribute("disabled");
+                    let trait_name = active_traits[trait_accordion.id.match(/\d+$/)[0]]["trait_name"];
+                    if(["Shoulder Straps", "Dual Wielding (Melee)", "Dual Wielding (Ranged)"].includes(trait_name)){
+                        legal_weapon_types = ["Melee", "Ranged"];
+                        max_num_weapons = 1;
+                    }
 
                     delete active_traits[trait_accordion.id.match(/\d+$/)[0]];
-                    get_traits(data);
+                    check_trait_legality();
+                    get_traits(traits_json);
+                    check_weapon_legality();
+                    get_weapons();
                     calculate_points();
                 });
     
@@ -72,12 +118,13 @@ function populate_traits_modal(data)
                     trait_edit_num = trait_edit.id.match(/\d+$/)[0];
                     let ename = active_traits[trait_edit_num.toString()]["trait_name"];
                     modal_trait_info = {"trait_name": ename, 
-                                        "points": data[ename]["points"], 
-                                        "description": data[ename]["description"], 
-                                        "cost": data[ename]["cost"]};
+                                        "points": traits_json[ename]["points"], 
+                                        "description": traits_json[ename]["description"], 
+                                        "cost": traits_json[ename]["cost"]};
 
                     populate_modal_trait_stats(modal_trait_info["trait_name"], modal_trait_info);
                     // Get values from active_traits json
+                    //TODO: Use indexof + splice here instead
                     let existing_trait_names = [];
                     for(let i in active_traits) {
                         if (active_traits[i]["trait_name"] != ename)
@@ -90,15 +137,16 @@ function populate_traits_modal(data)
 
                 n_traits++;
                 trait_btn_num++;
-                if(n_traits == 3)
-                    add_trait.setAttribute("disabled", "disabled");
             }
+            // We are editing a trait here
             else{
                 edit_trait(trait_edit_num);
                 active_traits[trait_edit_num.toString()] = modal_trait_info;
                 trait_edit_num = -1;
             }
-            get_traits(data);
+            check_trait_legality(modal_trait_info["trait_name"]);
+            get_traits(traits_json);
+            get_weapons();
             calculate_points();
         }
     });
@@ -123,26 +171,26 @@ function populate_traits_modal(data)
             dropdown.removeChild(dropdown.firstChild);
 
         // Add new traits to dropdown
-        for(let i in data) {
+        for(let i in traits_json) {
             // Only add traits that haven't already been selected.
             if(hide_list.indexOf(i) < 0){
                 let list_item_child = document.createElement("div");
                 list_item_child.classList.add("dropdown-item");
-                list_item_child.innerText = i + " (" + data[i]["points"] + ")";
+                list_item_child.innerText = i + " (" + traits_json[i]["points"] + ")";
                 let list_item = document.createElement("li");
                 list_item.appendChild(list_item_child);
         
                 list_item.onmouseover = function(event) {
-                    populate_modal_trait_stats(i, data[i]);
+                    populate_modal_trait_stats(i, traits_json[i]);
                 }
                 list_item.onmouseout = function(event) {
                     populate_modal_trait_stats(modal_trait_info["trait_name"], modal_trait_info);
                 }
                 list_item.onclick = function(event) {
                     modal_trait_info["trait_name"] = i;
-                    modal_trait_info["cost"] = data[i]["cost"];
-                    modal_trait_info["points"] = data[i]["points"];
-                    modal_trait_info["description"] = data[i]["description"];
+                    modal_trait_info["cost"] = traits_json[i]["cost"];
+                    modal_trait_info["points"] = traits_json[i]["points"];
+                    modal_trait_info["description"] = traits_json[i]["description"];
                 }
         
                 dropdown.appendChild(list_item);
@@ -155,9 +203,60 @@ function populate_traits_modal(data)
 
 }
 
+let weapons_title = document.getElementById("weapons-title");
+function change_weapon_legality(trait) {
+    
+    switch(trait) {
+        case "Shoulder Straps":
+            max_num_weapons = 2;
+            legal_weapon_types = ["Melee", "Ranged"];
+            break;
+        case "Dual Wielding (Melee)":
+            max_num_weapons = 2;
+            legal_weapon_types = ["Melee"];
+            break;
+        case "Dual Wielding (Ranged)":
+            max_num_weapons = 2;
+            legal_weapon_types = ["Ranged"];
+            break;
+    }
+
+}
+/* TODO: In the refactor, we need to have a collective function that runs all 
+    checks similar to this whenever anything changes (i.e. wherever points are 
+    calculated).*/ 
+function check_weapon_legality() {
+
+    // Loop through each active weapon, checking legality...
+    for(let i in active_weapons)
+    {
+        // Check if the weapon is indeed legal.
+        if(!legal_weapon_types.includes(weapon_type[active_weapons[i]["weapon_name"]])){
+            let weapon_accordion = document.getElementById("weapon-accordion-"+i.toString());
+            weapons_block.removeChild(weapon_accordion);
+            delete active_weapons[i];
+            n_weapons--;
+        }
+        
+    }
+
+    if(n_weapons > max_num_weapons){
+        let weapon_accordion = document.getElementById("weapon-accordion-"+i.toString());
+        weapons_block.removeChild(weapon_accordion);
+        delete active_weapons[i];
+        n_weapons--;
+    }
+    
+    if(n_weapons == max_num_weapons)
+        add_weapon.setAttribute("disabled", "disabled");
+    else
+        add_weapon.removeAttribute("disabled");
+
+    weapons_title.innerText = `Weapons (${n_weapons}/${max_num_weapons})`;
+}
+
 
 function edit_trait(id){
-    // I have seen behavior where the id is an old deleted one, when adding a trait.
     document.getElementById("trait-name-"+id.toString()).innerText = modal_trait_info["trait_name"];
     document.getElementById("trait-desc-"+id.toString()).innerText = modal_trait_info["description"];
     let trait_cost = document.getElementById("trait-cost-"+id.toString())
@@ -197,7 +296,9 @@ blue_dice.style.marginRight = "8px";
 let green_dice = blue_dice.cloneNode(true);
 green_dice.style.backgroundColor = "#198754";
 
-function populate_weapons_modal(data)
+let weapons_block = document.getElementById("weapons-block");
+let add_weapon = document.getElementById("add-weapon");
+function populate_weapons_modal(weapons_json)
 {
     let dropdown = document.getElementById("weapons-dropdown");
     let modal_weapon_name = document.getElementById("weapon-name");
@@ -241,44 +342,12 @@ function populate_weapons_modal(data)
     }
     populate_modal_weapon_stats(modal_weapon_info["weapon_name"], modal_weapon_info);
 
-    for(let i in data)
-    {
-        let list_item_child = document.createElement("div");
-        list_item_child.classList.add("dropdown-item");
-        list_item_child.innerText = i + " (" + data[i]["points"] + ")";
-        let list_item = document.createElement("li");
-        list_item.appendChild(list_item_child);
-
-        list_item.onmouseover = function(event) {
-            populate_modal_weapon_stats(i, data[i]);
-        }
-
-        list_item.onmouseout = function(event) {
-            populate_modal_weapon_stats(modal_weapon_info["weapon_name"], modal_weapon_info);
-        }
-
-        list_item.onclick = function(event) {
-            modal_weapon_info["special"] = data[i]["special"]
-            modal_weapon_info["weapon_name"] = i;
-            modal_weapon_info["points"] = data[i]["points"];
-            modal_weapon_info["melee"] = data[i]["melee"];
-            modal_weapon_info["short"] = data[i]["short"];
-            modal_weapon_info["medium"] = data[i]["medium"];
-            modal_weapon_info["long"] = data[i]["long"];
-        }
-
-        dropdown.appendChild(list_item);
-    }
 
     // (MODAL) Add weapon button
     let modal_add_weapon = document.getElementById("modal-add-weapon");
-    let weapons_block = document.getElementById("weapons-block");
-    let add_weapon = document.getElementById("add-weapon");
-
     modal_add_weapon.addEventListener("click", () => {
         if (modal_weapon_info["weapon_name"] != "None") {
             if(weapon_edit_num < 0) {
-                //create_weapon(weapons_block, weapon_btn_num);
                 create_accordion(weapon_template, "weapon", weapons_block, weapon_btn_num);
                 edit_weapon(weapon_btn_num);
                 let weapon_delete = document.getElementById("weapon-delete-"+weapon_btn_num.toString());
@@ -291,7 +360,8 @@ function populate_weapons_modal(data)
                     add_weapon.removeAttribute("disabled");
 
                     delete active_weapons[weapon_accordion.id.match(/\d+$/)[0]];
-                    get_weapons(data);
+                    check_weapon_legality();
+                    get_weapons();
                     calculate_points();
                 });
         
@@ -300,19 +370,20 @@ function populate_weapons_modal(data)
                     weapon_edit_num = weapon_edit.id.match(/\d+$/)[0];
                     let ename = active_weapons[weapon_edit_num.toString()]["weapon_name"];
                     modal_weapon_info = {
-                        "special": data[ename]["special"],
+                        "special": weapons_json[ename]["special"],
                         "weapon_name": ename,
-                        "points": data[ename]["points"],
-                        "melee": data[ename]["melee"],
-                        "short": data[ename]["short"],
-                        "medium": data[ename]["medium"],
-                        "long": data[ename]["long"]
+                        "points": weapons_json[ename]["points"],
+                        "melee": weapons_json[ename]["melee"],
+                        "short": weapons_json[ename]["short"],
+                        "medium": weapons_json[ename]["medium"],
+                        "long": weapons_json[ename]["long"]
                     }
                     counters = active_weapons[weapon_edit_num.toString()]["counters"];
 
                     populate_modal_weapon_stats(modal_weapon_info["weapon_name"], modal_weapon_info);
                     color_dice("melee");
                     color_dice("ranged");
+                    populate_weapon_dropdown();
                 });
                 active_weapons[weapon_btn_num.toString()] = modal_weapon_info;
                 active_weapons[weapon_btn_num.toString()]["counters"] = counters;
@@ -320,10 +391,6 @@ function populate_weapons_modal(data)
     
                 n_weapons++;
                 weapon_btn_num++;
-                if(n_weapons == 2)
-                {
-                    add_weapon.setAttribute("disabled", "disabled");
-                }
             }
             else
             {
@@ -333,7 +400,10 @@ function populate_weapons_modal(data)
                 weapon_edit_num = -1;
             }
         }
-        get_weapons(data);
+        /* Make sure weapons are legal (also update the weapons title and 
+        disable add weapon button if needed)*/
+        check_weapon_legality();
+        get_weapons();
         calculate_points();
     });
 
@@ -344,8 +414,45 @@ function populate_weapons_modal(data)
         populate_modal_weapon_stats(modal_weapon_info["weapon_name"], modal_weapon_info);
         color_dice("melee");
         color_dice("ranged");
+        populate_weapon_dropdown();
     });
 
+    function populate_weapon_dropdown(){
+        // Delete all traits from dropdown
+        while(dropdown.firstChild) 
+            dropdown.removeChild(dropdown.firstChild);
+
+        for(let i in weapons_json)
+        {
+            if(legal_weapon_types.includes(weapon_type[i]) || i == "None") {
+                let list_item_child = document.createElement("div");
+                list_item_child.classList.add("dropdown-item");
+                list_item_child.innerText = i + " (" + weapons_json[i]["points"] + ")";
+                let list_item = document.createElement("li");
+                list_item.appendChild(list_item_child);
+        
+                list_item.onmouseover = function(event) {
+                    populate_modal_weapon_stats(i, weapons_json[i]);
+                }
+        
+                list_item.onmouseout = function(event) {
+                    populate_modal_weapon_stats(modal_weapon_info["weapon_name"], modal_weapon_info);
+                }
+        
+                list_item.onclick = function(event) {
+                    modal_weapon_info["special"] = weapons_json[i]["special"]
+                    modal_weapon_info["weapon_name"] = i;
+                    modal_weapon_info["points"] = weapons_json[i]["points"];
+                    modal_weapon_info["melee"] = weapons_json[i]["melee"];
+                    modal_weapon_info["short"] = weapons_json[i]["short"];
+                    modal_weapon_info["medium"] = weapons_json[i]["medium"];
+                    modal_weapon_info["long"] = weapons_json[i]["long"];
+                }
+        
+                dropdown.appendChild(list_item);
+            }
+        }
+    }
     // Cancel button
     let cancel_button = document.getElementById("weapon-modal-close");
     cancel_button.addEventListener("click", ()=>{ weapon_edit_num = -1; });
@@ -610,7 +717,12 @@ let weapon_type =  {"Shield":"Melee",
                     "Axe":"Melee",
                     "Spear":"Melee",
                     "Knife":"Melee", 
-                    "Assault Rifle":"Ranged"};
+                    "Assault Rifle":"Ranged",
+                    "Longbow": "Ranged",
+                    "Shortbow": "Ranged",
+                    "Throwing Weapon": "Ranged",
+                    "Hand Crossbow": "Ranged",
+                    "Repeater Crossbow": "Ranged"};
 
 
 let points_json = {
@@ -709,6 +821,10 @@ function get_weapons()
     points_json["weapon1-upgrades"] = 0
     points_json["weapon2"] = 0
     points_json["weapon2-upgrades"] = 0
+    points_json["weapon1-m-upgrades"] = 0
+    points_json["weapon1-r-upgrades"] = 0
+    points_json["weapon2-m-upgrades"] = 0
+    points_json["weapon2-r-upgrades"] = 0
     points_json["type"] = ""
 
     let weapon_num = 1;
@@ -789,6 +905,8 @@ function calculate_points(){
 
 
     document.getElementById("points").innerText = points.toString() + " Points";
+
+    console.log(points_json);
 
 }
 calculate_points();
