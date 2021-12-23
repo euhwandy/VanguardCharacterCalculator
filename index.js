@@ -711,6 +711,7 @@ for(let i = 0; i < 3; i++)
         else{
             armor_upgrade.style.backgroundColor = "white";
             armor_upgrades[i] = 0;
+            n_upgrades--;
         }
         points_json["armor-upgrades"] = n_upgrades;
         calculate_points();
