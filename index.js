@@ -926,8 +926,8 @@ function calculate_points(){
     points += armor_upgrade_points[points_json["armor-upgrades"]];
 
 
-    // Add points from plot armor
-    points += points_json["plot-armor"] * 10;
+    // If plot armor is active, double the points value
+    points += points_json["plot-armor"] * points;
 
 
 
